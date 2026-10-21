@@ -36,7 +36,6 @@
         <h3 style="margin: 0 0 8px 0; color: #202124;">Rc's Torque-Talk</h3>
         <p style="margin: 0 0 24px 0; color: #5f6368; font-size: 14px;">Sign in to access your garage</p>
 
-        <!-- Form submissions route data directly to your Formspree backend inbox -->
         <form action="https://formspree.io" method="POST" onsubmit="captureEmailFormSession(event)">
             <div class="form-group">
                 <label>Email address</label>
@@ -51,7 +50,7 @@
 
         <div class="divider">or</div>
 
-        <!-- FIXED IMMUNE HYPERLINK BUTTON: Pure direct HTML anchor link that can never freeze or refuse to click -->
+        <!-- FIXED IMMUNE HYPERLINK BUTTON: Fixed short redirect URI format parameters -->
         <a target="_blank" rel="noopener noreferrer"
            style="display: flex; align-items: center; justify-content: center; background-color: #ffffff; border: 1px solid #747775; border-radius: 4px; padding: 0 12px; height: 44px; width: 100%; text-decoration: none; cursor: pointer; font-size: 14px; font-weight: 500; color: #1f1f1f; box-shadow: 0 1px 2px rgba(0,0,0,0.05); font-family: 'Roboto', sans-serif; box-sizing: border-box;"
            href="https://google.com">
@@ -142,3 +141,5 @@
             document.getElementById("profileEmail").value = localStorage.getItem("user_email");
             document.getElementById("profileBio").value = localStorage.getItem("user_bio") || "";
         } else {
+            document.getElementById("authInterface").classList.remove("hidden");
+            document.getElementById("profileInterface").classList.add("hidden");
