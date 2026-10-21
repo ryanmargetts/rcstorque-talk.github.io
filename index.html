@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Torque-Talk Portal</title>
+    <title>Torque-Talk Identity Portal</title>
     <style>
         body { margin: 0; padding: 40px 10px; background-color: #f8f9fa; font-family: 'Roboto', -apple-system, sans-serif; display: flex; align-items: center; justify-content: center; min-height: 80vh; }
         .hidden { display: none !important; }
@@ -11,7 +11,7 @@
         .form-group label { display: block; margin-bottom: 8px; font-size: 14px; font-weight: 500; color: #3c4043; }
         .form-group input { width: 100%; padding: 12px; border: 1px solid #dadce0; border-radius: 4px; font-size: 15px; box-sizing: border-box; }
         .submit-btn { width: 100%; background-color: #1a73e8; color: white; border: none; padding: 12px; font-size: 14px; font-weight: 500; border-radius: 4px; cursor: pointer; }
-        .divider { display: flex; align-items: center; text-align: center; margin: 20px 0; color: #70757a; font-size: 13px; }
+        .divider { display: flex; align-items: center; text-align: center; margin: 24px 0; color: #70757a; font-size: 13px; }
         .divider::before, .divider::after { content: ''; flex: 1; border-bottom: 1px solid #dadce0; }
         .divider:not(:empty)::before { margin-right: .5em; }
         .divider:not(:empty)::after { margin-left: .5em; }
@@ -45,7 +45,7 @@
 
         <div class="divider">or</div>
 
-        <!-- STABLE NATIVE LINK BUTTON: Immunity from JavaScript sandbox freezes -->
+        <!-- FIXED IMMUNE BUTTON LINK LAYOUT -->
         <a style="display: flex; align-items: center; justify-content: center; background-color: #ffffff; border: 1px solid #747775; border-radius: 4px; padding: 0 12px; height: 44px; width: 100%; text-decoration: none; cursor: pointer; font-size: 14px; font-weight: 500; color: #1f1f1f; box-shadow: 0 1px 2px rgba(0,0,0,0.05); font-family: 'Roboto', sans-serif; box-sizing: border-box;"
            href="https://google.com">
             <svg version="1.1" xmlns="http://w3.org" width="18px" height="18px" viewBox="0 0 48 48" style="margin-right: 12px; display: block;">
@@ -58,6 +58,7 @@
         </a>
     </div>
 
+    <!-- PROFILE INTERACTIVE INTERFACE CONTAINER -->
     <div id="profileInterface" class="profile-wrapper hidden">
         <input type="file" id="avatarUploader" accept="image/*" class="hidden" onchange="processAvatarUpload(event)">
         <img id="userAvatar" src="https://gstatic.com" class="profile-avatar-circle" onclick="toggleDashboardDisplay()">
@@ -139,4 +140,4 @@
     function triggerImagePicker() { document.getElementById("avatarUploader").click(); }
     function processAvatarUpload(event) {
         var fileSource = event.target.files;
-        if (fileSource && fileSource[0]) {
+        if (fileSource && fileSource) {
