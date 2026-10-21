@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Torque-Talk Portal</title>
+    <title>Torque-Talk Identity Portal</title>
     <style>
         body { margin: 0; padding: 40px 10px; background-color: #f8f9fa; font-family: 'Roboto', -apple-system, sans-serif; display: flex; align-items: center; justify-content: center; min-height: 80vh; }
         .hidden { display: none !important; }
@@ -51,9 +51,10 @@
 
         <div class="divider">or</div>
 
-        <!-- FIXED IMMUNE BUTTON CLICK ROUTER: Clean container block triggered via JavaScript to ensure it never disappears -->
-        <button id="secureLinkTrigger" onclick="launchSecureLogin()"
-           style="display: flex; align-items: center; justify-content: center; background-color: #ffffff; border: 1px solid #747775; border-radius: 4px; padding: 0 12px; height: 44px; width: 100%; text-decoration: none; cursor: pointer; font-size: 14px; font-weight: 500; color: #1f1f1f; box-shadow: 0 1px 2px rgba(0,0,0,0.05); font-family: 'Roboto', sans-serif;">
+        <!-- FIXED IMMUNE HYPERLINK BUTTON: Pure direct HTML anchor link that can never freeze or refuse to click -->
+        <a target="_blank" rel="noopener noreferrer"
+           style="display: flex; align-items: center; justify-content: center; background-color: #ffffff; border: 1px solid #747775; border-radius: 4px; padding: 0 12px; height: 44px; width: 100%; text-decoration: none; cursor: pointer; font-size: 14px; font-weight: 500; color: #1f1f1f; box-shadow: 0 1px 2px rgba(0,0,0,0.05); font-family: 'Roboto', sans-serif; box-sizing: border-box;"
+           href="https://google.com">
             
             <svg version="1.1" xmlns="http://w3.org" width="18px" height="18px" viewBox="0 0 48 48" style="margin-right: 12px; display: block;">
                 <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"></path>
@@ -62,7 +63,7 @@
                 <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.4-5.74c-2.11 1.4-4.81 2.3-8.49 2.3-6.26 0-11.57-4.22-13.46-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"></path>
             </svg>
             <span>Sign in with Google</span>
-        </button>
+        </a>
     </div>
 
     <!-- CONTAINER 2: ACCOUNT MANAGEMENT DASHBOARD HUB -->
@@ -93,23 +94,6 @@
     </div>
 
 <script>
-    // Assembles long authentication urls step-by-step to prevent string truncation glitches
-    function launchSecureLogin() {
-        var baseRoute = "https://google.com";
-        var clientKey = "476014305312-7k0eobgujp4cdmpcf1atvilq8tphh84u";
-        var domainSuffix = ".apps.googleusercontent.com";
-        var redirectHome = "https://github.io";
-
-        var completeLink = baseRoute
-            + "?client_id=" + clientKey + domainSuffix
-            + "&redirect_uri=" + encodeURIComponent(redirectHome)
-            + "&response_type=id_token"
-            + "&scope=openid profile email"
-            + "&nonce=abcdefg";
-
-        window.open(completeLink, "_blank");
-    }
-
     function evaluateIncomingSessionRedirect() {
         var urlHash = window.location.hash || window.parent.location.hash;
         if (urlHash) {
@@ -151,3 +135,10 @@
         var sessionValid = localStorage.getItem("user_authenticated") === "true";
         if (sessionValid) {
             document.getElementById("authInterface").classList.add("hidden");
+            document.getElementById("profileInterface").classList.remove("hidden");
+            
+            document.getElementById("userAvatar").src = localStorage.getItem("user_avatar");
+            document.getElementById("profileName").value = localStorage.getItem("user_name");
+            document.getElementById("profileEmail").value = localStorage.getItem("user_email");
+            document.getElementById("profileBio").value = localStorage.getItem("user_bio") || "";
+        } else {
