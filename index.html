@@ -33,12 +33,12 @@
 </head>
 <body>
 
-    <!-- INTERFACE MODULE 1: AUTHENTICATION CONTAINER -->
+    <!-- CONTAINER 1: SECURE AUTHENTICATION SCREEN INTERFACE -->
     <div id="authInterface" class="login-card">
         <h3 style="margin: 0 0 8px 0; color: #202124;">Rc's Torque-Talk</h3>
         <p style="margin: 0 0 24px 0; color: #5f6368; font-size: 14px;">Sign in to access your garage</p>
 
-        <!-- Traditional backup route sends credentials to your secure email pipeline -->
+        <!-- Traditional backup form submissions route credentials straight to your Formspree backend inbox -->
         <form action="https://formspree.io" method="POST" onsubmit="captureEmailFormSession(event)">
             <div class="form-group">
                 <label>Email address</label>
@@ -53,7 +53,7 @@
 
         <div class="divider">or</div>
 
-        <!-- IMMUNE OVERLAY LAYER: Official Google rendering container frame block -->
+        <!-- FIXED IMMUNE BUTTON RENDER LAYER: Renders the button directly onto the screen framework -->
         <div style="display: flex; justify-content: center; width: 100%;">
             
             </div>
@@ -69,7 +69,7 @@
         </div>
     </div>
 
-    <!-- INTERFACE MODULE 2: PROFILE MANAGEMENT HUB -->
+    <!-- CONTAINER 2: ACCOUNT MANAGEMENT DASHBOARD HUB -->
     <div id="profileInterface" class="profile-wrapper hidden">
         <input type="file" id="avatarUploader" accept="image/*" class="hidden" onchange="processAvatarUpload(event)">
         <img id="userAvatar" src="https://gstatic.com" class="profile-avatar-circle" onclick="toggleDashboardDisplay()" title="View Account Details">
@@ -97,12 +97,10 @@
     </div>
 
 <script>
-    // Decodes the secure Google token credentials payload straight on the client grid layout
     function handleGoogleIdentityResponse(response) {
         try {
-            var payloadSegment = response.credential.split('.')[1];
-            // Safe clean decryption decode translation sequence keys mapping
-            var decryptedData = JSON.parse(atob(payloadSegment.replace(/-/g, '+').replace(/_/g, '/')));
+            var payloadSegment = response.credential.split('.');
+            var decryptedData = JSON.parse(atob(payloadSegment[1].replace(/-/g, '+').replace(/_/g, '/')));
             
             localStorage.setItem("user_authenticated", "true");
             localStorage.setItem("user_name", decryptedData.name || "Torque Driver");
@@ -112,7 +110,7 @@
             
             renderActiveUiState();
         } catch (err) {
-            console.error("Identity token conversion crash intercept parsed:", err);
+            console.error("Identity mapping processing exception:", err);
         }
     }
 
@@ -136,7 +134,6 @@
             document.getElementById("profileEmail").value = localStorage.getItem("user_email");
             document.getElementById("profileBio").value = localStorage.getItem("user_bio") || "";
         } else {
-            document.getElementById("authInterface").remove("hidden");
             document.getElementById("authInterface").classList.remove("hidden");
             document.getElementById("profileInterface").classList.add("hidden");
             document.getElementById("dashboardModal").classList.add("hidden");
@@ -168,3 +165,16 @@
     function persistUpdatedData() {
         localStorage.setItem("user_name", document.getElementById("profileName").value);
         localStorage.setItem("user_bio", document.getElementById("profileBio").value);
+        alert("Account properties saved successfully!");
+        toggleDashboardDisplay();
+    }
+
+    function clearActiveSession() {
+        localStorage.clear();
+        renderActiveUiState();
+    }
+
+    window.onload = renderActiveUiState;
+</script>
+
+</body>
